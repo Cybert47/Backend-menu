@@ -11,7 +11,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Seguridad
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'insecure-development-key')  # Usa .env para el valor real
 DEBUG = os.getenv('DJANGO_DEBUG', 'True') == 'True'
-ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '').split(',') if not DEBUG else ['*']
+
+# ALLOWED_HOSTS: Si no es DEBUG, coloca aquí las URLs que aceptarás
+if DEBUG:
+    ALLOWED_HOSTS = ['*']
+else:
+    ALLOWED_HOSTS = [
+        'backend-menu-uhk6.onrender.com',
+        '8000-firebase-backend-1747613597043.cluster-joak5ukfbnbyqspg4tewa33d24.cloudworkstations.dev',
+    ]
 
 # Aplicaciones
 INSTALLED_APPS = [
@@ -110,3 +118,9 @@ REST_FRAMEWORK = {
 
 # CORS
 CORS_ALLOW_ALL_ORIGINS = DEBUG  # Solo permitir todos los orígenes si DEBUG está activado
+
+# URLs confiables para CSRF (agrega las URLs que mencionaste)
+CSRF_TRUSTED_ORIGINS = [
+    "https://backend-menu-uhk6.onrender.com",
+    "https://8000-firebase-backend-1747613597043.cluster-joak5ukfbnbyqspg4tewa33d24.cloudworkstations.dev",
+]
